@@ -79,6 +79,9 @@ public class ApiStressTest {
     private static void sendRequest(String targetURL, String method, Boolean flag) {
         int retries = 5;
         HttpURLConnection httpURLConnection = null;
+        if (flag) {
+            totalRequests.incrementAndGet();
+        }
         while (retries > 0) {
             InputStream inputStream = null;
             try {
@@ -89,9 +92,7 @@ public class ApiStressTest {
                     start = System.currentTimeMillis();
                 }
                 httpURLConnection.setRequestMethod(method);
-                if (flag) {
-                    totalRequests.incrementAndGet();
-                }
+
                 int responseCode = httpURLConnection.getResponseCode();
                 inputStream = httpURLConnection.getInputStream();
 
